@@ -1,0 +1,48 @@
+{
+    "result": [
+      {
+        "message": "Hello, Tony! Your order number is: #43",
+        "phoneNumber": "709.977.0375 x87000",
+        "phoneVariation": "+90 395 627 10 27",
+        "status": "disabled",
+        "name": {
+          "first": "Randi",
+          "middle": "Sage",
+          "last": "Carter"
+        },
+        "username": "Randi-Carter",
+        "password": "L9rUcgFwvH36NjQ",
+        "emails": [
+          "Jerad_Kilback98@example.com",
+          "Brad.Fahey@example.com"
+        ],
+        "location": {
+          "street": "125 Jerrell Valley",
+          "city": "Port Lilyanfurt",
+          "state": "Maryland",
+          "country": "Bouvet Island",
+          "zip": "90573-3310",
+          "coordinates": {
+            "latitude": "52.5451",
+            "longitude": "144.9219"
+          }
+        },
+        "website": "https://legitimate-tomatillo.com",
+        "domain": "dental-steeple.net",
+        "job": {
+          "title": "Investor Applications Orchestrator",
+          "descriptor": "Product",
+          "area": "Communications",
+          "type": "Officer",
+          "company": "Macejkovic Group"
+        },
+        "creditCard": {
+          "number": "2272-3849-9988-7057",
+          "cvv": "882",
+          "issuer": "mastercard"
+        },
+        "uuid": "5d56e993-50ba-4ba2-8405-6542718149cd",
+        "objectId": "6772c8e7f15ebaf82ffc3a0f"
+      }
+    ]
+}

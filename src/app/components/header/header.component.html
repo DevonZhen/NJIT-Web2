@@ -1,0 +1,27 @@
+<header>
+   <div class="container-fluid">
+        <div class="row top">
+            <div class="col">Welcome, Devon Zhen</div>
+            <div class="col-6"></div>
+            <div class="col rightSide">{{ currentTime }}</div>
+            <div class="col rightSide">
+                <a routerLink="login"><button mat-flat-button id="loginButton">Login</button></a>
+            </div>
+        </div>
+        <div class="row bottom">
+            <div class="col"><a routerLink="/" ><img src="/images/Logo.jpg" class="rounded" alt="..." style="height: 50px; width: auto;"></a></div>
+            <div class="col text-center">
+                <div>
+                    <a routerLink="personDetails" *ngIf="display;"><i class="bi bi-person-fill"></i> Create Profile</a> &nbsp;&nbsp;&nbsp;
+                    <a routerLink="personList"    *ngIf="display"><i class="bi bi-clipboard-plus-fill"></i>Update Profile</a> &nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="col" >
+                  <!-- <div class="input-group mb-3 searchBar" >
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="Search...">
+                    <span class="input-group-text" ><i class="bi bi-search"></i></span>
+                  </div> -->
+            </div>
+        </div>
+    </div>
+</header>

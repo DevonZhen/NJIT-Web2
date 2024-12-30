@@ -1,0 +1,28 @@
+.col{
+    /* border: dotted 2px magenta; */
+}
+
+.row.top{
+    background-color: grey;
+    color: yellow;
+    padding-bottom: 5px;
+}
+.row.top .rightSide{
+    background-color: grey;
+    color: yellow;
+    text-align: right;
+}
+
+.row.bottom{
+    background-color: #CE2222;
+}
+
+.searchBar{
+    float: right;
+    width: 50%;
+}
+
+#loginButton{
+    height: 90%;
+    padding: 1px 1px 1px 1px;
+}
