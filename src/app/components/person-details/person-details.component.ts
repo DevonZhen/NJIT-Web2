@@ -127,21 +127,21 @@ export class PersonDetailsComponent implements OnInit {
     // };
     // console.log("POSTING PERSON...\n"+JSON.stringify(data,null,2))
 
-    // this.apiService.postPerson(data).subscribe((data: any)=>{
-    //   if(data){
-    //     this.snackbar.open("Person has been saved successfully!", 'close',  {
-    //       duration: 5 * 1000,
-    //       panelClass: ['mat-toolbar', 'mat-primary'] 
-    //     });
-    //   }else{
-    //     this.snackbar.open("Person has been saved successfully!", 'close',  {
-    //       duration: 5 * 1000,
-    //       panelClass: ['mat-toolbar', 'mat-warn'] 
-    //     });
-    //   }
-    // },error=>{
-    //   console.log("Error postPerson()", error);
-    // })
+    this.apiService.postPerson(data).subscribe((data: any)=>{
+      if(data){
+        this.snackbar.open("Person has been saved successfully!", 'close',  {
+          duration: 5 * 1000,
+          panelClass: ['mat-toolbar', 'mat-primary'] 
+        });
+      }else{
+        this.snackbar.open("Person has been saved successfully!", 'close',  {
+          duration: 5 * 1000,
+          panelClass: ['mat-toolbar', 'mat-warn'] 
+        });
+      }
+    },error=>{
+      console.log("Error postPerson()", error);
+    })
   }
 
   //Preload Person Details into UI
