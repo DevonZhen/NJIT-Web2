@@ -1,6 +1,6 @@
 export interface personTypes {
-    personTypeId: number;
-    personType: string;
+  personTypeId: number;
+  personType: string;
 
   }
   

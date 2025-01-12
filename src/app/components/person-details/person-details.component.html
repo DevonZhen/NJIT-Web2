@@ -27,12 +27,11 @@
                             <input matInput formControlName="confirmPassword" required>
                         </mat-form-field>
                     </div>
-                    <div class="col">
+                    <div class="col" formGroupName="personType">
                         <mat-form-field>
                             <mat-label>Type</mat-label>
                             <mat-select formControlName="personTypeId" required>
-                            <mat-option value="1">Student</mat-option>
-                            <mat-option value="2">Parent</mat-option>
+                                <mat-option [value]="personType.personTypeId" *ngFor="let personType of personTypes"> {{personType.personType}} </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>

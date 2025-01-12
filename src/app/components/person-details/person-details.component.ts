@@ -10,6 +10,8 @@ import { ReactiveFormsModule, FormBuilder, Validators, FormArray, FormGroup, For
 import { DataService } from '../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { personTypes } from '../../interfaces/personTypes';
+import { phoneTypes } from '../../interfaces/phoneTypes';
 
 @Component({
   selector: 'app-person-details',
@@ -22,6 +24,9 @@ export class PersonDetailsComponent implements OnInit {
   updateFlag:boolean =  false;
   result;
   dataSource;
+
+  personTypes: personTypes[];
+  phoneTypes: phoneTypes[];
   
 
   private apiService = inject(DataService);
@@ -36,7 +41,6 @@ export class PersonDetailsComponent implements OnInit {
     uid: ['', Validators.required],
     password: ['', Validators.required],
     confirmPassword: [''],
-    personTypeId: [''],
     firstName: [''],
     lastName: [''],
     ssn: ['', Validators.required],
@@ -47,6 +51,10 @@ export class PersonDetailsComponent implements OnInit {
       city: [''],
       state: [''],
       zip: [''],
+    }),
+    personType:this.formBuilder.group({
+      personTypeId: [''],
+      personType: [''],
     }),
     emgContact: this.formBuilder.group({
       emgContactId: [''],
@@ -61,6 +69,7 @@ export class PersonDetailsComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.getPersonType();
     console.log("SSN: "+this.route.snapshot.paramMap.get('ssn'));
     if(this.route.snapshot.paramMap.get('ssn') != null){
       this.getPersonDetails(this.route.snapshot.paramMap.get('ssn'));
@@ -83,17 +92,20 @@ export class PersonDetailsComponent implements OnInit {
   postPerson(data: any){
     // data = {
     //   "id": "",
-    //   "uid": "ftime123",
-    //   "password": "forbes123",
-    //   "confirmPassword": "forbes123",
-    //   "personTypeId": "1",
-    //   "firstName": "Forbes",
-    //   "lastName": "Times",
-    //   "ssn": "123456798",
+    //   "uid": "lray123",
+    //   "password": "loran123",
+    //   "confirmPassword": "loran123",
+    //   "personType": {
+    //     "personTypeId": 3,
+    //     "personType": ""
+    //   },
+    //   "firstName": "Loran",
+    //   "lastName": "Ray",
+    //   "ssn": "159647826",
     //   "birthday": "2025-01-12T01:42:49.659Z",
     //   "address": {
     //     "id": "",
-    //     "street": "1 Pondering Rd",
+    //     "street": "2 Pondering Rd",
     //     "city": "Water City",
     //     "state": "NJ",
     //     "zip": "08550"
@@ -115,31 +127,31 @@ export class PersonDetailsComponent implements OnInit {
     // };
     // console.log("POSTING PERSON...\n"+JSON.stringify(data,null,2))
 
-    this.apiService.postPerson(data).subscribe((data: any)=>{
-      if(data){
-        this.snackbar.open("Person has been saved successfully!", 'close',  {
-          duration: 5 * 1000,
-          panelClass: ['mat-toolbar', 'mat-primary'] 
-        });
-      }else{
-        this.snackbar.open("Person has been saved successfully!", 'close',  {
-          duration: 5 * 1000,
-          panelClass: ['mat-toolbar', 'mat-warn'] 
-        });
-      }
-    },error=>{
-      console.log("Error postPerson()", error);
-    })
+    // this.apiService.postPerson(data).subscribe((data: any)=>{
+    //   if(data){
+    //     this.snackbar.open("Person has been saved successfully!", 'close',  {
+    //       duration: 5 * 1000,
+    //       panelClass: ['mat-toolbar', 'mat-primary'] 
+    //     });
+    //   }else{
+    //     this.snackbar.open("Person has been saved successfully!", 'close',  {
+    //       duration: 5 * 1000,
+    //       panelClass: ['mat-toolbar', 'mat-warn'] 
+    //     });
+    //   }
+    // },error=>{
+    //   console.log("Error postPerson()", error);
+    // })
   }
 
   //Preload Person Details into UI
   loadPersonDetailForm(data){
+    console.log("Patching... "+data.personType.personType);
     this.profileForm.patchValue({
       "id": data.id,
       "uid": data.uid,
       "password": data.password,
       "confirmPassword": data.password,
-      "personTypeId": data.personId,
       "firstName": data.firstName,
       "lastName": data.lastName,
       "ssn": data.ssn,
@@ -150,6 +162,10 @@ export class PersonDetailsComponent implements OnInit {
         'city': data.address.city,
         'state': data.address.state,
         'zip': data.address.zip,
+      },
+      'personType':{
+        'personTypeId':data.personType.personTypeId,
+        'personType':data.personType.personType
       },
       'emgContact':{
         'emgContactId': data.emgContact.emgContactId,
@@ -198,5 +214,16 @@ export class PersonDetailsComponent implements OnInit {
 
   deletePhone(i: number){
     this.phones.removeAt(i);
+  }
+
+   //Loads the JSON/Dynamic data from Restful <Person Type>
+   getPersonType(){
+    this.apiService.getPersonTypeData().subscribe((data: any)=>{
+      console.log("Person Types: "+JSON.stringify(data, null, 2));
+      this.personTypes = data;
+    }, err => {
+      console.log("(Person Type) Error occured: getPersonType() failed "+err)
+    }
+  )
   }
 }
