@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
@@ -10,9 +10,18 @@ import moment from 'moment';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+
   currentTime: string = moment().format('M/D/YY hh:mm a');
   display = true;
-  constructor() {
+
+  constructor() {}
+
+  ngOnInit() {
+    console.log("header result "+sessionStorage.getItem('loginSession'));
+  }
+
+  signout() {
+    console.log("signout...")
   }
 }

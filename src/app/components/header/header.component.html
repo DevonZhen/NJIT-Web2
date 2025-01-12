@@ -6,6 +6,7 @@
             <div class="col rightSide">{{ currentTime }}</div>
             <div class="col rightSide">
                 <a routerLink="login"><button mat-flat-button id="loginButton">Login</button></a>
+                <button mat-flat-button id="loginButton" (click)="signout()">Sign Out</button>
             </div>
         </div>
         <div class="row bottom">

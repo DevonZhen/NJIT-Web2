@@ -37,6 +37,7 @@ export class PersonListComponent implements OnInit{
   constructor(){}
   
   ngOnInit() {
+    console.log("result "+sessionStorage.getItem('loginSession'));
     this.getPerson();
   }
 
@@ -44,7 +45,7 @@ export class PersonListComponent implements OnInit{
     this.apiService.getPersonAllData().subscribe((data: any)=>{
       this.dataSource = data;
       this.result = JSON.stringify(data);
-      // console.log("Results: "+JSON.stringify(this.dataSource))
+      console.log("Results: "+JSON.stringify(this.dataSource,null,2))
     })
   }
 
@@ -53,7 +54,13 @@ export class PersonListComponent implements OnInit{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onClickDelete(id: any){
+  deletePerson(id: any){
     console.log("Deleting Person "+id);
+    this.apiService.deletePerson(id).subscribe(()=>{
+      this.getPerson();
+    },
+    err => {
+      console.log("Error occured: getPersonDetails()" + err)
+    })
   }
 }

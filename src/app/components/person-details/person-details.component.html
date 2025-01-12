@@ -3,7 +3,7 @@
     <div class="row text-center">
         <h1>Person Details</h1>
     </div>
-    <form [formGroup]="profileForm">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <div class="row">
             <div class="col"></div>
             <div class="col-8 text-center">
@@ -12,7 +12,7 @@
                     <div class="col">
                         <mat-form-field>
                             <mat-label>User ID</mat-label>
-                            <input matInput formControlName="userId" required>
+                            <input matInput formControlName="uid" required>
                         </mat-form-field>
                     </div>
                     <div class="col">
@@ -30,9 +30,9 @@
                     <div class="col">
                         <mat-form-field>
                             <mat-label>Type</mat-label>
-                            <mat-select formControlName="pertId" required>
-                            <mat-option value="one">Student</mat-option>
-                            <mat-option value="two">Parent</mat-option>
+                            <mat-select formControlName="personTypeId" required>
+                            <mat-option value="1">Student</mat-option>
+                            <mat-option value="2">Parent</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col">
                         <mat-form-field>
-                            <mat-label>Choose a date</mat-label>
+                            <mat-label>Birthday</mat-label>
                             <input matInput formControlName="birthday" [matDatepicker]="picker">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -128,7 +128,7 @@
                         <div class="col">
                             <mat-form-field>
                                 <mat-label>Contact Phone</mat-label>
-                                <input matInput>
+                                <input matInput formControlName="contactPhone">
                             </mat-form-field>
                         </div>
                         <div class="col">
@@ -146,21 +146,25 @@
             <div class="row">
                 <div class="col"></div>
                 <div class="col-8 text-center">
-                    <div class="row">
-                        <div class="col">
-                            <mat-form-field>
-                                <mat-label>Phone</mat-label>
-                                <input matInput formControlName="phone">
-                            </mat-form-field>
-                        </div>
-                        <div class="col">
-                            <mat-form-field>
-                                <mat-label>Phone Type</mat-label>
-                                <input matInput formControlName="phoneType">
-                            </mat-form-field>
-                        </div>
-                        <div class="col"></div>
-                        <div class="col"></div>
+                    <div class="row" *ngFor="let phone of phones.controls; let i=index" [formGroupName]="i">
+                            <div class="col">
+                                <mat-form-field >
+                                    <mat-label >Phone</mat-label>
+                                    <input matInput formControlName="phone">
+                                </mat-form-field>
+                            </div>
+                            <div class="col" >
+                                <mat-form-field>
+                                    <mat-label>Phone Type</mat-label>
+                                    <mat-select formControlName="phoneType">
+                                    <mat-option value="Cell">Cell</mat-option>
+                                    <mat-option value="Work">Work</mat-option>
+                                    <mat-option value="Home">Home</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col"><button mat-mini-fab  (click)="addPhone()" *ngIf="phones.controls.length-1 == i"><i class="bi bi-plus-lg"></i></button></div>
+                            <div class="col"><button mat-mini-fab  (click)="deletePhone(i)" *ngIf="phones.controls.length > 1"><i class="bi bi-dash"></i></button></div>
                     </div>
                 </div>
                 <div class="col"></div>
@@ -169,8 +173,11 @@
         <br>
         <div class="row text-center">
             <div class="col"></div>
-            <div class="col"><button mat-flat-button id="updateButton">Update</button></div>
-            <div class="col"><button mat-flat-button id="resetButton">Reset</button></div>
+            <div class="col">
+                <button mat-flat-button id="updateButton" *ngIf="updateFlag">Update</button>
+                <button mat-raised-button color="primary" *ngIf="!updateFlag">Save</button>
+            </div>
+            <div class="col"><button mat-flat-button id="resetButton" (click)="reset()">Reset</button></div>
             <div class="col"></div>
         </div>
     </form>
